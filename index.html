@@ -3,7 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Maklumat Pelajar Asrama SMK Dato' Mahmud Mat</title>
+<title>Dashboard Pelajar Asrama SMK Dato' Mahmud Mat</title>
+
+<!-- Font Awesome untuk ikon -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 <style>
 body { 
   font-family: Arial, sans-serif; 
@@ -15,6 +19,7 @@ body {
 }
 h1 { margin-bottom: 10px; font-size: 24px; color: #222; }
 
+/* Login */
 #loginContainer { 
   margin-top: 100px; background: #fff; padding: 30px; border-radius: 15px; width: 320px; margin-left: auto; margin-right: auto; 
   box-shadow: 0 2px 8px rgba(0,0,0,0.2); transition: all 0.6s ease; opacity: 1;
@@ -24,58 +29,94 @@ h1 { margin-bottom: 10px; font-size: 24px; color: #222; }
 #loginContainer button { padding: 8px 16px; border: none; border-radius: 5px; background-color: #007bff; color: white; cursor: pointer; font-size: 14px; }
 #loginContainer button:hover { background-color: #0056b3; }
 
+/* Dashboard */
 #dashboard { display: none; opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
 #dashboard.show { opacity: 1; transform: translateY(0); }
-
 #userInfo { background: #fff; padding: 10px; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.2); margin-bottom: 15px; display: inline-block; }
-#searchBar { padding: 10px; width: 90%; max-width: 400px; margin-bottom: 20px; border-radius: 30px; border: 1px solid #ccc; font-size: 14px; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
-.kelas-container { display: flex; flex-wrap: wrap; justify-content: center; margin-bottom: 30px; }
-.kelas-card { background: #fff; border-radius: 10px; padding: 20px; margin: 10px; width: 180px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); cursor: pointer; font-size: 14px; transition: 0.3s; }
-.kelas-card:hover { background: linear-gradient(135deg, #007bff, #0056b3); color: #fff; transform: scale(1.05); }
 
-#totalBoard { margin: 0 auto 20px; width: 300px; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
-#pelajarList { margin-top: 20px; text-align: left; display: inline-block; max-width: 90%; font-size: 14px; }
-
-.pelajar-card, .nama-pelajar { display: inline-block; background: #fff; border-radius: 10px; padding: 10px 15px; margin: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: 0.3s; cursor: pointer; width: 180px; vertical-align: top; text-align: center; }
-.pelajar-card:hover, .nama-pelajar:hover { background-color: #007bff; color: white; transform: scale(1.05); }
-
-table { border-collapse: collapse; width: 100%; margin-top: 10px; font-size: 14px; }
-th, td { border: 1px solid #ccc; padding: 8px; text-align: left; font-size: 14px; }
-th { background-color: #007bff; color: white; }
-
+/* Buttons */
 .btn-modern { padding: 8px 18px; border: none; border-radius: 25px; color: #fff; font-size: 14px; cursor: pointer; margin: 5px; transition: 0.3s; }
 .btn-modern:hover { transform: scale(1.05); }
 .logout { background: #dc3545; }
 .data-entry { background: #17a2b8; }
 
+/* Search bar */
+#searchBar { padding: 10px; width: 90%; max-width: 400px; margin-bottom: 20px; border-radius: 30px; border: 1px solid #ccc; font-size: 14px; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+
+/* Total Pelajar Cards */
+#totalBoard { display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:30px; }
+.total-card {
+  background: linear-gradient(145deg,#ffffff,#e6f0ff);
+  padding: 25px 35px;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  min-width: 150px;
+  text-align: center;
+  transition: transform 0.4s, box-shadow 0.4s;
+  cursor: default;
+  position: relative;
+}
+.total-card .icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+  color: #007bff;
+}
+#totalP .icon { color: #ff6384; }
+#totalJ .icon { color: #28a745; }
+.total-card h2 { margin: 5px 0; font-size: 20px; color: #333; }
+.total-card p { font-size: 32px; font-weight: bold; margin:0; }
+.total-card:hover { transform: translateY(-6px); box-shadow: 0 12px 28px rgba(0,0,0,0.18); }
+
+/* Kelas Cards */
+.kelas-container { display: flex; flex-wrap: wrap; justify-content: center; margin-bottom: 30px; }
+.kelas-card { background: #fff; border-radius: 10px; padding: 20px; margin: 10px; width: 180px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); cursor: pointer; font-size: 14px; transition: 0.3s; }
+.kelas-card:hover { background: linear-gradient(135deg, #007bff, #0056b3); color: #fff; transform: scale(1.05); }
+
+/* Pelajar Cards */
+#pelajarList { margin-top: 20px; text-align: left; display: inline-block; max-width: 90%; font-size: 14px; }
+.pelajar-card, .nama-pelajar { display: inline-block; background: #fff; border-radius: 10px; padding: 10px 15px; margin: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: 0.3s; cursor: pointer; width: 180px; vertical-align: top; text-align: center; }
+.pelajar-card:hover, .nama-pelajar:hover { background-color: #007bff; color: white; transform: scale(1.05); }
+
+/* Modal */
 .modal { display: none; position: fixed; z-index: 1000; padding-top: 100px; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.4); }
 .modal-content { background-color: #fefefe; margin: auto; padding: 20px; border: 1px solid #888; width: 90%; max-width: 500px; border-radius: 10px; text-align: left; font-size: 14px; }
 .close { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
 .close:hover, .close:focus { color: black; text-decoration: none; cursor: pointer; }
 
+/* Spinner */
 #spinner { display: none; margin: 120px auto 10px; border: 6px solid #f3f3f3; border-top: 6px solid #007bff; border-radius: 50%; width: 60px; height: 60px; animation: spin 1s linear infinite; opacity: 0; transition: opacity 0.8s ease; }
 #loadingText { display:none; font-size:14px; color:#555; margin-top:10px; opacity: 0; transition: opacity 0.8s ease; }
 @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
+/* Logs */
 #logSection { display:none; background:#fff; padding:20px; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.2); width:90%; max-width:600px; margin:30px auto; text-align:left; }
 #logList { list-style:none; padding:0; margin-top:10px; max-height:250px; overflow-y:auto; }
 #logList li { background:#f8f9fa; padding:6px 10px; border-radius:5px; margin-bottom:4px; border-left:4px solid #007bff; font-size:13px; }
 #noLogs { color:#777; font-style:italic; text-align:center; margin-top:10px; }
 #clearLogsBtn { background:#dc3545; color:#fff; border:none; padding:6px 12px; border-radius:20px; cursor:pointer; margin-top:10px; font-size:13px; }
 #clearLogsBtn:hover { transform:scale(1.05); }
+
+/* Table */
+table { border-collapse: collapse; width: 100%; margin-top: 10px; font-size: 14px; }
+th, td { border: 1px solid #ccc; padding: 8px; text-align: left; font-size: 14px; }
+th { background-color: #007bff; color: white; }
+
 </style>
 </head>
 <body>
 
+<!-- LOGIN -->
 <div id="loginContainer">
   <h2>Login Dashboard</h2>
   <input type="password" id="loginPassword" placeholder="Kata Laluan">
   <button onclick="checkLogin()">Login</button>
 </div>
 
+<!-- SPINNER -->
 <div id="spinner"></div>
 <div id="loadingText">Sedang memuat data pelajar<span id="dots"></span></div>
 
+<!-- DASHBOARD -->
 <div id="dashboard">
   <h1>Maklumat Pelajar Asrama SMK Dato' Mahmud Mat</h1>
   <div id="userInfo"></div>
@@ -86,17 +127,39 @@ th { background-color: #007bff; color: white; }
   </div>
 
   <input type="text" id="searchBar" placeholder="Cari pelajar ikut nama..." onkeyup="searchPelajar()">
-  <div id="totalBoard"><canvas id="pieChart" width="250" height="250"></canvas></div>
+
+  <!-- Total Pelajar Cards -->
+  <div id="totalBoard">
+    <div class="total-card" id="totalL">
+      <div class="icon"><i class="fa-solid fa-person"></i></div>
+      <h2>Lelaki</h2>
+      <p>0</p>
+    </div>
+    <div class="total-card" id="totalP">
+      <div class="icon"><i class="fa-solid fa-person-dress"></i></div>
+      <h2>Perempuan</h2>
+      <p>0</p>
+    </div>
+    <div class="total-card" id="totalJ">
+      <div class="icon"><i class="fa-solid fa-users"></i></div>
+      <h2>Jumlah Pelajar</h2>
+      <p>0</p>
+    </div>
+  </div>
+
+  <!-- Kelas -->
   <div class="kelas-container" id="kelasContainer"></div>
   <div id="pelajarList"></div>
 
+  <!-- Logs -->
   <div id="logSection">
-    <h3>📜 Sistem Logs</h3>
+    <h3>?? Sistem Logs</h3>
     <ul id="logList"></ul>
     <p id="noLogs">Tiada log direkodkan.</p>
     <button id="clearLogsBtn">Kosongkan Log</button>
   </div>
 
+  <!-- Modal -->
   <div id="modal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeModal()">&times;</span>
@@ -105,10 +168,8 @@ th { background-color: #007bff; color: white; }
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
-
 <script>
+// ===== DATA & USER =====
 const users = [
   { password: "ayuni2025", name: "Admin Utama" },
   { password: "ayuni123", name: "Pn. Ayuni (Penyelia Asrama)" },
@@ -116,206 +177,85 @@ const users = [
   { password: "asrama9897", name: "Warden Aspuri" },
   { password: "guest000", name: "Tetamu" }
 ];
-
 const DATA_PASSWORD = "admin123";
 const SHEET_PASSWORD = "sheetadmin";
 const SHEET_URL = "https://docs.google.com/spreadsheets/d/1j7sBUhWHbjEhqsdM3EeEWwOYSFC4WBSYReW-cotWgV4/edit";
 const FETCH_URL = "https://script.google.com/macros/s/AKfycbxyMw1j-kBs06lfmp14gyLD9JGrVFqa5D48OBRzq_x6-VRIpA0V4JzBu_e2U_vML7jl0w/exec";
 
-let currentUser = null;
-let dataPelajar = {}, kelasNames = [];
-let dotInterval;
-let systemLogs = [];
+let currentUser=null, dataPelajar={}, kelasNames=[], dotInterval, systemLogs=[];
 
-const container = document.getElementById("kelasContainer");
-const pelajarDiv = document.getElementById("pelajarList");
-const modal = document.getElementById("modal");
-const modalBody = document.getElementById("modalBody");
-const spinner = document.getElementById("spinner");
-const loadingText = document.getElementById("loadingText");
-const dotsSpan = document.getElementById("dots");
-const dashboard = document.getElementById("dashboard");
-const loginContainer = document.getElementById("loginContainer");
-const userInfo = document.getElementById("userInfo");
-const logSection = document.getElementById("logSection");
-const logList = document.getElementById("logList");
-const noLogs = document.getElementById("noLogs");
+// Elements
+const container=document.getElementById("kelasContainer"),
+      pelajarDiv=document.getElementById("pelajarList"),
+      modal=document.getElementById("modal"),
+      modalBody=document.getElementById("modalBody"),
+      spinner=document.getElementById("spinner"),
+      loadingText=document.getElementById("loadingText"),
+      dotsSpan=document.getElementById("dots"),
+      dashboard=document.getElementById("dashboard"),
+      loginContainer=document.getElementById("loginContainer"),
+      userInfo=document.getElementById("userInfo"),
+      logSection=document.getElementById("logSection"),
+      logList=document.getElementById("logList"),
+      noLogs=document.getElementById("noLogs");
 
-// ---- LOG SYSTEM ----
-function saveLogs(){ localStorage.setItem("systemLogs", JSON.stringify(systemLogs)); }
-function loadLogs(){ const saved = localStorage.getItem("systemLogs"); if(saved) systemLogs = JSON.parse(saved); }
+// ===== LOG SYSTEM =====
+function saveLogs(){ localStorage.setItem("systemLogs",JSON.stringify(systemLogs)); }
+function loadLogs(){ const s=localStorage.getItem("systemLogs"); if(s) systemLogs=JSON.parse(s); }
 function addLog(msg){ const time=new Date().toLocaleString(); systemLogs.unshift(`[${time}] ${msg}`); saveLogs(); updateLogDisplay(); }
-function updateLogDisplay(){
-  logList.innerHTML="";
-  if(systemLogs.length===0){ noLogs.style.display="block"; return; }
-  noLogs.style.display="none";
-  systemLogs.forEach(log=>{
-    const li=document.createElement("li");
-    li.textContent=log;
-    logList.appendChild(li);
-  });
-}
+function updateLogDisplay(){ logList.innerHTML=""; if(systemLogs.length===0){ noLogs.style.display="block"; return;} noLogs.style.display="none"; systemLogs.forEach(l=>{const li=document.createElement("li"); li.textContent=l; logList.appendChild(li); });}
 loadLogs(); updateLogDisplay();
+document.getElementById("clearLogsBtn").addEventListener("click",()=>{ if(currentUser.name!=="Admin Utama") return; if(confirm("Adakah anda pasti ingin mengosongkan semua log?")){ systemLogs=[]; saveLogs(); updateLogDisplay(); addLog("Admin Utama telah mengosongkan semua log."); }});
 
-document.getElementById("clearLogsBtn").addEventListener("click",()=>{
-  if(currentUser.name!=="Admin Utama") return;
-  if(confirm("Adakah anda pasti ingin mengosongkan semua log?")){
-    systemLogs=[]; saveLogs(); updateLogDisplay(); addLog("Admin Utama telah mengosongkan semua log.");
-  }
-});
+// ===== LOGIN =====
+function checkLogin(){ const pw=document.getElementById("loginPassword").value.trim(); const u=users.find(x=>x.password===pw); if(u){ currentUser=u; addLog(`${u.name} telah log masuk sistem.`); localStorage.setItem("lastLogin",JSON.stringify({name:u.name,time:new Date().toLocaleString()})); loginContainer.classList.add("fadeOut"); setTimeout(()=>{ loginContainer.style.display="none"; showSpinner(); setTimeout(fetchData,500); },600); } else alert("Kata laluan salah!"); }
+function logout(){ addLog(`${currentUser.name} telah log keluar.`); dashboard.classList.remove("show"); setTimeout(()=>{ dashboard.style.display="none"; loginContainer.style.display="block"; loginContainer.classList.remove("fadeOut"); document.getElementById("loginPassword").value=""; },600); }
 
-function checkLogin() {
-  const pw = document.getElementById("loginPassword").value.trim();
-  const user = users.find(u => u.password === pw);
+// ===== SPINNER =====
+function showSpinner(){ spinner.style.display="block"; loadingText.style.display="block"; setTimeout(()=>{spinner.style.opacity=1; loadingText.style.opacity=1;},50); let c=0; dotInterval=setInterval(()=>{c=(c+1)%4; dotsSpan.textContent='.'.repeat(c);},500);}
+function hideSpinner(){ spinner.style.opacity=0; loadingText.style.opacity=0; clearInterval(dotInterval); setTimeout(()=>{spinner.style.display="none"; loadingText.style.display="none";},800); }
 
-  if (user) {
-    currentUser = user;
-    addLog(`${user.name} telah log masuk sistem.`);
-    localStorage.setItem("lastLogin", JSON.stringify({ name: user.name, time: new Date().toLocaleString() }));
-    loginContainer.classList.add("fadeOut");
-    setTimeout(() => {
-      loginContainer.style.display = "none";
-      showSpinner();
-      setTimeout(fetchData, 500);
-    }, 600);
-  } else {
-    alert("Kata laluan salah!");
-  }
-}
+// ===== FETCH DATA =====
+function fetchData(){ fetch(FETCH_URL,{cache:"no-cache"}).then(r=>r.json()).then(data=>{ dataPelajar={}; kelasNames=Object.keys(data||{}); kelasNames.forEach(k=>{ if(Array.isArray(data[k])) dataPelajar[k]=data[k]; }); paparkanKelas(); paparkanJumlahPelajar(); paparUserInfo(); hideSpinner(); setTimeout(showDashboard,600); }).catch(err=>{ console.error(err); alert("Gagal fetch data dari Google Sheet."); hideSpinner(); }); }
 
-function logout() {
-  addLog(`${currentUser.name} telah log keluar.`);
-  dashboard.classList.remove("show");
-  setTimeout(() => {
-    dashboard.style.display = "none";
-    loginContainer.style.display = "block";
-    loginContainer.classList.remove("fadeOut");
-    document.getElementById("loginPassword").value = "";
-  }, 600);
-}
+// ===== DASHBOARD =====
+function showDashboard(){ dashboard.style.display="block"; requestAnimationFrame(()=>dashboard.classList.add("show")); if(currentUser.name==="Admin Utama") logSection.style.display="block"; else logSection.style.display="none"; }
+function bukaGoogleSheet(){ const pw=prompt("Masukkan kata laluan admin untuk buka Data Entry:"); if(pw===SHEET_PASSWORD) { window.open(SHEET_URL,"_blank"); addLog(`${currentUser.name} membuka Data Entry.`); } else if(pw!==null) alert("Kata laluan salah!"); }
+function paparUserInfo(){ const last=JSON.parse(localStorage.getItem("lastLogin")||"{}"); let html=`<b>?? Pengguna:</b> ${currentUser.name}`; if(currentUser.password==="ayuni2025"&&last.name) html+=`<br><small>?? Log masuk terakhir: ${last.name} — ${last.time}</small>`; userInfo.innerHTML=html; }
 
-function showSpinner(){ spinner.style.display="block"; loadingText.style.display="block"; setTimeout(()=>{spinner.style.opacity=1; loadingText.style.opacity=1;},50);
- let c=0; dotInterval=setInterval(()=>{c=(c+1)%4; dotsSpan.textContent='.'.repeat(c);},500);}
-function hideSpinner(){ spinner.style.opacity=0; loadingText.style.opacity=0; clearInterval(dotInterval);
- setTimeout(()=>{spinner.style.display="none"; loadingText.style.display="none";},800);}
-
-function fetchData(){
- fetch(FETCH_URL,{cache:"no-cache"}).then(res=>res.json()).then(data=>{
-  dataPelajar={}; kelasNames=Object.keys(data||{}); kelasNames.forEach(k=>{if(Array.isArray(data[k])) dataPelajar[k]=data[k];});
-  paparkanKelas(); paparkanCarta(); paparUserInfo(); hideSpinner(); setTimeout(showDashboard,600);
- }).catch(err=>{console.error("Gagal fetch data:",err); alert("Gagal fetch data dari Google Sheet."); hideSpinner();});
-}
-
-function showDashboard(){ dashboard.style.display="block"; requestAnimationFrame(()=>dashboard.classList.add("show"));
-  if(currentUser.name==="Admin Utama"){ logSection.style.display="block"; } else { logSection.style.display="none"; }
-}
-
-function bukaGoogleSheet(){
- const pw=prompt("Masukkan kata laluan admin untuk buka Data Entry:");
- if(pw===SHEET_PASSWORD) {window.open(SHEET_URL,"_blank"); addLog(`${currentUser.name} membuka Data Entry.`);}
- else if(pw!==null) alert("Kata laluan salah!");
-}
-
-function paparUserInfo(){
- const last=JSON.parse(localStorage.getItem("lastLogin")||"{}");
- let html=`<b>👤 Pengguna:</b> ${currentUser.name}`;
- if(currentUser.password==="ayuni2025"&&last.name){
-  html+=`<br><small>⏱️ Log masuk terakhir: ${last.name} — ${last.time}</small>`;
- }
- userInfo.innerHTML=html;
-}
-
+// ===== JANTINA & TOTAL =====
 function kiraJantina(p){ let L=p.filter(x=>x.Jantina==="L").length; let P=p.filter(x=>x.Jantina==="P").length; return {L,P,jumlah:p.length}; }
-
-function paparkanKelas(){
- container.innerHTML=""; kelasNames.forEach(k=>{
-  if(!dataPelajar[k]) return;
-  const div=document.createElement("div"); div.className="kelas-card";
-  const j=kiraJantina(dataPelajar[k]);
-  div.innerHTML=`<h3>${k}</h3><p>Lelaki: ${j.L}</p><p>Perempuan: ${j.P}</p><p><b>Jumlah: ${j.jumlah}</b></p>`;
-  div.onclick=()=>loadPelajarNama(k);
-  container.appendChild(div);
- });
+function animateCount(id,target){ let el=document.querySelector(`#${id} p`), count=0, step=Math.ceil(target/50); let interval=setInterval(()=>{ count+=step; if(count>=target){ count=target; clearInterval(interval); } el.textContent=count; },15); }
+function paparkanJumlahPelajar(){ 
+  let L=0,P=0; 
+  kelasNames.forEach(k=>{ const j=kiraJantina(dataPelajar[k]); L+=j.L; P+=j.P; }); 
+  animateCount("totalL",L); 
+  animateCount("totalP",P); 
+  animateCount("totalJ",L+P); 
 }
 
-function loadPelajarNama(k){
- const pelajar=dataPelajar[k];
- if(!pelajar||pelajar.length===0){ pelajarDiv.innerHTML=`<h3>${k}</h3><p>Tiada pelajar</p>`; return;}
- let html=`<h3>${k}</h3>`;
- pelajar.forEach((p,i)=>{ html+=`<span class="nama-pelajar" onclick="showFullInfo('${k}',${i})">${p.Nama}</span>`;});
- pelajarDiv.innerHTML=html;
-}
+// ===== KELAS =====
+function paparkanKelas(){ container.innerHTML=""; kelasNames.forEach(k=>{ if(!dataPelajar[k]) return; const div=document.createElement("div"); div.className="kelas-card"; const j=kiraJantina(dataPelajar[k]); div.innerHTML=`<h3>${k}</h3><p>Lelaki: ${j.L}</p><p>Perempuan: ${j.P}</p><p><b>Jumlah: ${j.jumlah}</b></p>`; div.onclick=()=>loadPelajarNama(k); container.appendChild(div); }); }
 
-function showFullInfo(k,i){
- modal.style.display="block";
- modalBody.innerHTML=`<p>Masukkan kata laluan untuk lihat maklumat penuh:</p><input type="password" id="pwInput" placeholder="Kata Laluan"><button onclick="checkPassword('${k}',${i})">Hantar</button>`;
-}
-
-function checkPassword(k,i){
- const input=document.getElementById("pwInput").value;
- if(input===DATA_PASSWORD){
-  const p=dataPelajar[k][i];
-  modalBody.innerHTML=`<h3>${p.Nama} - Maklumat Penuh</h3><table>
-   <tr><th>Nama</th><td>${p.Nama}</td></tr><tr><th>Jantina</th><td>${p.Jantina}</td></tr>
-   <tr><th>No IC</th><td>${p['No IC']}</td></tr><tr><th>Alamat</th><td>${p.Alamat}</td></tr>
-   <tr><th>No Telefon</th><td>${p['No Telefon']}</td></tr><tr><th>Bilik</th><td>${p.Bilik}</td></tr></table>
-   <button onclick="closeModal()">Tutup</button>`;
- } else alert("Kata laluan salah!");
-}
-
+// ===== PELAJAR =====
+function loadPelajarNama(k){ const pelajar=dataPelajar[k]; if(!pelajar||pelajar.length===0){ pelajarDiv.innerHTML=`<h3>${k}</h3><p>Tiada pelajar</p>`; return;} let html=`<h3>${k}</h3>`; pelajar.forEach((p,i)=>{ html+=`<span class="nama-pelajar" onclick="showFullInfo('${k}',${i})">${p.Nama}</span>`; }); pelajarDiv.innerHTML=html; }
+function showFullInfo(k,i){ modal.style.display="block"; modalBody.innerHTML=`<p>Masukkan kata laluan untuk lihat maklumat penuh:</p><input type="password" id="pwInput" placeholder="Kata Laluan"><button onclick="checkPassword('${k}',${i})">Hantar</button>`; }
+function checkPassword(k,i){ const input=document.getElementById("pwInput").value; if(input===DATA_PASSWORD){ const p=dataPelajar[k][i]; modalBody.innerHTML=`<h3>${p.Nama} - Maklumat Penuh</h3><table>
+<tr><th>Nama</th><td>${p.Nama}</td></tr><tr><th>Jantina</th><td>${p.Jantina}</td></tr>
+<tr><th>No IC</th><td>${p['No IC']}</td></tr><tr><th>Alamat</th><td>${p.Alamat}</td></tr>
+<tr><th>No Telefon</th><td>${p['No Telefon']}</td></tr><tr><th>Bilik</th><td>${p.Bilik}</td></tr></table>
+<button onclick="closeModal()">Tutup</button>`; } else alert("Kata laluan salah!"); }
 function closeModal(){ modal.style.display="none"; }
-window.onclick=e=>{ if(e.target==modal) closeModal(); };
 
-function searchPelajar(){
- const input=document.getElementById("searchBar").value.toLowerCase().trim();
- pelajarDiv.innerHTML=""; if(!input) return; 
- let hasil=[];
- kelasNames.forEach(k=>{
-   dataPelajar[k].forEach((p,idx)=>{
-     if(p.Nama.toLowerCase().includes(input)) hasil.push({...p,kelas:k,idx});
-   });
- });
- if(hasil.length===0){ pelajarDiv.innerHTML="<p>Tiada pelajar ditemui.</p>"; return; }
- let html="<h3>Hasil Carian:</h3>";
- hasil.forEach(p=>{ html+=`<span class="nama-pelajar" onclick="showFullInfo('${p.kelas}',${p.idx})">${p.Nama} (${p.kelas})</span>`;});
- pelajarDiv.innerHTML=html;
-}
+// ===== SEARCH =====
+function searchPelajar(){ const input=document.getElementById("searchBar").value.toLowerCase().trim(); pelajarDiv.innerHTML=""; if(!input) return; let hasil=[]; kelasNames.forEach(k=>{ dataPelajar[k].forEach((p,idx)=>{ if(p.Nama.toLowerCase().includes(input)) hasil.push({...p,kelas:k,idx}); }); }); if(hasil.length===0){ pelajarDiv.innerHTML="<p>Tiada pelajar ditemui.</p>"; return; } let html="<h3>Hasil Carian:</h3>"; hasil.forEach(p=>{ html+=`<span class="nama-pelajar" onclick="showFullInfo('${p.kelas}',${p.idx})">${p.Nama} (${p.kelas})</span>`; }); pelajarDiv.innerHTML=html; }
 
-function paparkanCarta(){
- const ctx=document.getElementById("pieChart");
- let totalL=0,totalP=0;
- kelasNames.forEach(k=>{
-  const j=kiraJantina(dataPelajar[k]);
-  totalL+=j.L; totalP+=j.P;
- });
- if(totalL+totalP===0){
-   ctx.getContext('2d').clearRect(0,0,ctx.width,ctx.height);
-   ctx.getContext('2d').fillText("Tiada data", 100, 100);
-   return;
- }
- new Chart(ctx,{type:"pie",data:{labels:["Lelaki","Perempuan"],datasets:[{data:[totalL,totalP],backgroundColor:["#007bff","#ff6384"]}]},
- options:{plugins:{legend:{position:"bottom"},datalabels:{color:"#fff",formatter:(v,c)=>c.chart.data.labels[c.dataIndex]+": "+v}}}});
-}
-
-// ---- Prevent Right-Click ----
-document.addEventListener("contextmenu", function(e){ e.preventDefault(); });
-
-// ---- Disable Keyboard Shortcuts ----
-document.addEventListener("keydown", function(e) {
-    if ((e.ctrlKey || e.metaKey) && (
-        e.key.toLowerCase() === 'u' ||  
-        e.key.toLowerCase() === 'c' ||  
-        e.key.toLowerCase() === 's'     
-    )) {
-        e.preventDefault();
-        alert("Shortcut ini telah dinyahaktifkan!");
-    }
-    if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'i')) {
-        e.preventDefault();
-        alert("Developer tools dinyahaktifkan!");
-    }
+// ===== PREVENT DEFAULT =====
+document.addEventListener("contextmenu", e=>e.preventDefault());
+document.addEventListener("keydown", e=>{
+  if((e.ctrlKey||e.metaKey)&&['u','c','s'].includes(e.key.toLowerCase())){ e.preventDefault(); alert("Shortcut ini telah dinyahaktifkan!"); }
+  if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&e.key.toLowerCase()==='i')){ e.preventDefault(); alert("Developer tools dinyahaktifkan!"); }
 });
 </script>
 </body>
 </html>
-
